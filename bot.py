@@ -1,19 +1,13 @@
 # -*- coding: utf-8 -*-
-#import redis
-import os
-#import telebot
-# import some_api_lib
-# import ...
 
-# Example of your code beginning
-#           Config vars
+import os
+
 token = os.environ['TELEGRAM_TOKEN']
 
 
 def get_updates_json():  
     response = requests.get("https://api.telegram.org/bot{0}/getUpdates".format(token))
     return response.json()
-	
 print(get_updates_json())
 
 
