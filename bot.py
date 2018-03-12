@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import requests
 
 token = os.environ['TELEGRAM_TOKEN']
 
