@@ -2,6 +2,7 @@
 
 #import os
 #import requests
+import time
 
 #token = os.environ['TELEGRAM_TOKEN']
 
@@ -11,7 +12,9 @@
 #    return response.json()
 #print(get_updates_json())
 
-print(5)
+while True:
+    print(5)
+    time.sleep(3)
 
 
 
