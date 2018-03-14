@@ -47,7 +47,7 @@ def regular_choice(bot, update, user_data):
     text = update.message.text
     user_data['choice'] = text
     update.message.reply_text(
-        'Всего лишь {}? Что за экономия :p!'.format(text.lower()))
+        '{}|Сколько же мы потратили на этот раз?!'.format(text.lower()))
 
     return TYPING_REPLY
 
