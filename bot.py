@@ -77,6 +77,9 @@ def received_information(bot, update, user_data):
         update.message.reply_text("Клаас! Последние роднулины траты:"
                               "{}".format(facts_to_str(user_data)), reply_markup=markup)
     else:
+		category = user_data['choice']
+        user_data[category] ='0'
+        del user_data['choice']
 	    update.message.reply_text("Надо денюжки вводить, а не белиберду!", reply_markup=markup)
     return CHOOSING
 
