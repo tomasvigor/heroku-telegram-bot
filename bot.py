@@ -53,7 +53,7 @@ def regular_choice(bot, update, user_data):
 
 
 def custom_choice(bot, update, user_data):
-    update.message.reply_text("Итого:"
+    update.message.reply_text("Итого за все время:"
                               "{}".format(facts_to_str(user_data)))
 
     return CHOOSING
