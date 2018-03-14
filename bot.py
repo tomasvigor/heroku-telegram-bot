@@ -47,7 +47,7 @@ def regular_choice(bot, update, user_data):
     text = update.message.text
     user_data['choice'] = text
     update.message.reply_text(
-        'Your {}? Yes, I would love to hear about that!'.format(text.lower()))
+        'Всего лишь {}? Что за экономия :p!'.format(text.lower()))
 
     return TYPING_REPLY
 
@@ -105,7 +105,7 @@ def main():
             CHOOSING: [RegexHandler('^(Еда|Развлечения|Машина|Другое)$',
                                     regular_choice,
                                     pass_user_data=True),
-                       RegexHandler('^Something else...$',
+                       RegexHandler('^Статистика$',
                                     custom_choice),
                        ],
 
@@ -120,7 +120,7 @@ def main():
                            ],
         },
 
-        fallbacks=[RegexHandler('^Done$', done, pass_user_data=True)]
+        fallbacks=[RegexHandler('^Готово$', done, pass_user_data=True)]
     )
 
     dp.add_handler(conv_handler)
