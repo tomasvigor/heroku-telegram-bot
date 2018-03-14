@@ -53,10 +53,10 @@ def regular_choice(bot, update, user_data):
 
 
 def custom_choice(bot, update):
-    update.message.reply_text('Alright, please send me the category first, '
-                              'for example "Most impressive skill"')
+    update.message.reply_text("Итого:"
+                              "{}".format(facts_to_str(user_data)))
 
-    return TYPING_CHOICE
+    return CHOOSING
 
 
 def received_information(bot, update, user_data):
