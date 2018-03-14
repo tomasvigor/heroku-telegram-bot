@@ -19,9 +19,9 @@ logger = logging.getLogger(__name__)
 
 CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
 
-reply_keyboard = [['Age', 'Favourite colour'],
-                  ['Number of siblings', 'Something else...'],
-                  ['Done']]
+reply_keyboard = [['Еда', 'Развлечения'],
+                  ['Машина', 'Другое'],
+                  ['Статистика']]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 
@@ -36,8 +36,8 @@ def facts_to_str(user_data):
 
 def start(bot, update):
     update.message.reply_text(
-        "Hi! My name is Doctor Botter. I will hold a more complex conversation with you. "
-        "Why don't you tell me something about yourself?",
+        "Привет! Я роднулин финансовый помощник. Буду помогать считать траты. "
+        "Куда потратим деньги?",
         reply_markup=markup)
 
     return CHOOSING
@@ -102,7 +102,7 @@ def main():
         entry_points=[CommandHandler('start', start)],
 
         states={
-            CHOOSING: [RegexHandler('^(Age|Favourite colour|Number of siblings)$',
+            CHOOSING: [RegexHandler('^(Еда|Развлечения|Машина|Другое')$',
                                     regular_choice,
                                     pass_user_data=True),
                        RegexHandler('^Something else...$',
