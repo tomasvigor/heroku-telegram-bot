@@ -102,7 +102,7 @@ def main():
         entry_points=[CommandHandler('start', start)],
 
         states={
-            CHOOSING: [RegexHandler('^(Еда|Развлечения|Машина|Другое')$',
+            CHOOSING: [RegexHandler('^(Еда|Развлечения|Машина|Другое)$',
                                     regular_choice,
                                     pass_user_data=True),
                        RegexHandler('^Something else...$',
