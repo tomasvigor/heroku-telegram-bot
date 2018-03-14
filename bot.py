@@ -65,10 +65,8 @@ def received_information(bot, update, user_data):
     user_data[category] = text
     del user_data['choice']
 
-    update.message.reply_text("Neat! Just so you know, this is what you already told me:"
-                              "{}"
-                              "You can tell me more, or change your opinion on something.".format(
-                                  facts_to_str(user_data)), reply_markup=markup)
+    update.message.reply_text("Клаас! Последние роднулины траты:"
+                              "{}".format(facts_to_str(user_data)), reply_markup=markup)
 
     return CHOOSING
 
