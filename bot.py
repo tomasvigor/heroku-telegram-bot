@@ -24,7 +24,7 @@ reply_keyboard = [['Еда', 'Развлечения'],
                   ['Статистика']]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
-finans = {'Еда' : 0, 'Развлечение' : 0, 'Машина' : 0, 'Другое' : 0}
+finans = {'Еда' : 0, 'Развлечения' : 0, 'Машина' : 0, 'Другое' : 0}
 
 
 def facts_to_str(user_data):
