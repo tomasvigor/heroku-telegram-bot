@@ -32,6 +32,13 @@ def facts_to_str(user_data):
         facts.append('{} - {}'.format(key, value))
 
     return "\n".join(facts).join(['\n', '\n'])
+	
+def is_int(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 
 def start(bot, update):
@@ -61,13 +68,16 @@ def custom_choice(bot, update, user_data):
 
 def received_information(bot, update, user_data):
     text = update.message.text
-    category = user_data['choice']
-    user_data[category] = text
-    del user_data['choice']
 
-    update.message.reply_text("Клаас! Последние роднулины траты:"
+    if is_int(text):
+        category = user_data['choice']
+        user_data[category] = text
+        del user_data['choice']
+
+        update.message.reply_text("Клаас! Последние роднулины траты:"
                               "{}".format(facts_to_str(user_data)), reply_markup=markup)
-
+    else:
+	    update.message.reply_text("Надо денюжки вводить, а не белиберду!", reply_markup=markup)
     return CHOOSING
 
 
