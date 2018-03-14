@@ -52,7 +52,7 @@ def regular_choice(bot, update, user_data):
     return TYPING_REPLY
 
 
-def custom_choice(bot, update):
+def custom_choice(bot, update, user_data):
     update.message.reply_text("Итого:"
                               "{}".format(facts_to_str(user_data)))
 
@@ -104,7 +104,8 @@ def main():
                                     regular_choice,
                                     pass_user_data=True),
                        RegexHandler('^Статистика$',
-                                    custom_choice),
+                                    custom_choice,
+									pass_user_data=True),
                        ],
 
             TYPING_CHOICE: [MessageHandler(Filters.text,
