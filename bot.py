@@ -24,6 +24,8 @@ reply_keyboard = [['Еда', 'Развлечения'],
                   ['Статистика']]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
+finans = {'Еда' : 0, 'Развлечение' : 0, 'Машина' : 0, 'Другое' : 0}
+
 
 def facts_to_str(user_data):
     facts = list()
@@ -32,7 +34,7 @@ def facts_to_str(user_data):
         facts.append('{} - {}'.format(key, value))
 
     return "\n".join(facts).join(['\n', '\n'])
-	
+
 def is_int(s):
     try: 
         int(s)
@@ -61,7 +63,7 @@ def regular_choice(bot, update, user_data):
 
 def custom_choice(bot, update, user_data):
     update.message.reply_text("Итого за все время:"
-                              "{}".format(facts_to_str(user_data)))
+                              "{}".format(facts_to_str(finans)))
 
     return CHOOSING
 
@@ -71,6 +73,7 @@ def received_information(bot, update, user_data):
 
     if is_int(text):
         category = user_data['choice']
+        finans[category] += int(text)
         user_data[category] = text
         del user_data['choice']
 
