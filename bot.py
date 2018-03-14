@@ -5,46 +5,136 @@ import logging
 import telegram
 from telegram.error import NetworkError, Unauthorized
 from time import sleep
+from telegram import ReplyKeyboardMarkup
+from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, RegexHandler,
+                          ConversationHandler)
+
+import logging
+
+# Enable logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+
+logger = logging.getLogger(__name__)
+
+CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
+
+reply_keyboard = [['Age', 'Favourite colour'],
+                  ['Number of siblings', 'Something else...'],
+                  ['Done']]
+markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 
-update_id = None
+def facts_to_str(user_data):
+    facts = list()
+
+    for key, value in user_data.items():
+        facts.append('{} - {}'.format(key, value))
+
+    return "\n".join(facts).join(['\n', '\n'])
+
+
+def start(bot, update):
+    update.message.reply_text(
+        "Hi! My name is Doctor Botter. I will hold a more complex conversation with you. "
+        "Why don't you tell me something about yourself?",
+        reply_markup=markup)
+
+    return CHOOSING
+
+
+def regular_choice(bot, update, user_data):
+    text = update.message.text
+    user_data['choice'] = text
+    update.message.reply_text(
+        'Your {}? Yes, I would love to hear about that!'.format(text.lower()))
+
+    return TYPING_REPLY
+
+
+def custom_choice(bot, update):
+    update.message.reply_text('Alright, please send me the category first, '
+                              'for example "Most impressive skill"')
+
+    return TYPING_CHOICE
+
+
+def received_information(bot, update, user_data):
+    text = update.message.text
+    category = user_data['choice']
+    user_data[category] = text
+    del user_data['choice']
+
+    update.message.reply_text("Neat! Just so you know, this is what you already told me:"
+                              "{}"
+                              "You can tell me more, or change your opinion on something.".format(
+                                  facts_to_str(user_data)), reply_markup=markup)
+
+    return CHOOSING
+
+
+def done(bot, update, user_data):
+    if 'choice' in user_data:
+        del user_data['choice']
+
+    update.message.reply_text("I learned these facts about you:"
+                              "{}"
+                              "Until next time!".format(facts_to_str(user_data)))
+
+    user_data.clear()
+    return ConversationHandler.END
+
+
+def error(bot, update, error):
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, error)
 
 
 def main():
-    """Run the bot."""
-    global update_id
-    # Telegram Bot Authorization Token
-    bot = telegram.Bot(os.environ['TELEGRAM_TOKEN'])
+    # Create the Updater and pass it your bot's token.
+    updater = Updater(os.environ['TELEGRAM_TOKEN'])
 
-    # get the first pending update_id, this is so we can skip over it in case
-    # we get an "Unauthorized" exception.
-    try:
-        update_id = bot.get_updates()[0].update_id
-    except IndexError:
-        update_id = None
+    # Get the dispatcher to register handlers
+    dp = updater.dispatcher
 
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # Add conversation handler with the states GENDER, PHOTO, LOCATION and BIO
+    conv_handler = ConversationHandler(
+        entry_points=[CommandHandler('start', start)],
 
-    while True:
-        try:
-            echo(bot)
-        except NetworkError:
-            sleep(1)
-        except Unauthorized:
-            # The user has removed or blocked the bot.
-            update_id += 1
+        states={
+            CHOOSING: [RegexHandler('^(Age|Favourite colour|Number of siblings)$',
+                                    regular_choice,
+                                    pass_user_data=True),
+                       RegexHandler('^Something else...$',
+                                    custom_choice),
+                       ],
 
+            TYPING_CHOICE: [MessageHandler(Filters.text,
+                                           regular_choice,
+                                           pass_user_data=True),
+                            ],
 
-def echo(bot):
-    """Echo the message the user sent."""
-    global update_id
-    # Request updates after the last update_id
-    for update in bot.get_updates(offset=update_id, timeout=10):
-        update_id = update.update_id + 1
+            TYPING_REPLY: [MessageHandler(Filters.text,
+                                          received_information,
+                                          pass_user_data=True),
+                           ],
+        },
 
-        if update.message:  # your bot can receive updates without messages
-            # Reply to the message
-            update.message.reply_text(update.message.text)
+        fallbacks=[RegexHandler('^Done$', done, pass_user_data=True)]
+    )
+
+    dp.add_handler(conv_handler)
+
+    # log all errors
+    dp.add_error_handler(error)
+
+    # Start the Bot
+    updater.start_polling()
+
+    # Run the bot until you press Ctrl-C or the process receives SIGINT,
+    # SIGTERM or SIGABRT. This should be used most of the time, since
+    # start_polling() is non-blocking and will stop the bot gracefully.
+    updater.idle()
 
 
 if __name__ == '__main__':
