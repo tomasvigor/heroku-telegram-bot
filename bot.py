@@ -82,8 +82,7 @@ def received_information(bot, update, user_data):
         print("Old value:{1}".format(old_value))
 
         new_value = old_value + int(text)
-        print("New value:{1}".format(new_value)
-
+        print("New value:{1}".format(new_value))
         r.hset(category, new_value)
 
         finans[category] += int(text)
