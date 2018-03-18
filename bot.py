@@ -163,6 +163,7 @@ def main():
                            ],
         },
 
+        fallbacks=[RegexHandler('^Готово$', done, pass_user_data=True)]
     )
 
     dp.add_handler(conv_handler)
