@@ -96,7 +96,7 @@ def received_information(bot, update, user_data):
         del user_data['choice']
 
         update.message.reply_text("Клаас! Последние роднулины траты:"
-                              "{}".format(facts_to_str(user_data)), reply_markup=markup)
+                              "{}".format(facts_to_str()), reply_markup=markup)
     else:
         category = user_data['choice']
         user_data[category] ='0'
