@@ -68,13 +68,13 @@ def regular_choice(bot, update, user_data):
     text = update.message.text
     user_data['choice'] = text
     update.message.reply_text(
-        '{}|Сколько же мы потратили на этот раз?!'.format(text.lower()))
+        '{}\nСколько же мы потратили на этот раз?!'.format(text) + u'\U0001F43E')
 
     return TYPING_REPLY
 
 
 def custom_choice(bot, update, user_data):
-    update.message.reply_text("Итого за все время:"
+    update.message.reply_text("Итого за этот месяц:"
                               "{}".format(facts_to_str()))
 
     return CHOOSING
@@ -101,13 +101,13 @@ def received_information(bot, update, user_data):
         user_data[category] = text
         del user_data['choice']
 
-        update.message.reply_text("Клаас! Последние роднулины траты:"
+        update.message.reply_text("Запомнил!" + u'\U0001F9E0' + "\nПоследние роднулины траты:"
                               "{}".format(facts_to_str()), reply_markup=markup)
     else:
         category = user_data['choice']
         user_data[category] ='0'
         del user_data['choice']
-        update.message.reply_text("Надо денюжки вводить, а не белиберду!", reply_markup=markup)
+        update.message.reply_text("Надо денюжки вводить, а не белиберду!" + u'\U0001F62F', reply_markup=markup)
     return CHOOSING
 
 
