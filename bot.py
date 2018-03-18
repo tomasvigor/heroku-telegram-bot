@@ -31,7 +31,7 @@ r = redis.from_url(os.environ.get("REDIS_URL"))
 print(r)
 
 
-def facts_to_str(user_data):
+def facts_to_str():
     facts = list()
 
     for cat in finans:
@@ -69,7 +69,7 @@ def regular_choice(bot, update, user_data):
 
 def custom_choice(bot, update, user_data):
     update.message.reply_text("Итого за все время:"
-                              "{}".format(facts_to_str(finans)))
+                              "{}".format(facts_to_str()))
 
     return CHOOSING
 
@@ -92,7 +92,6 @@ def received_information(bot, update, user_data):
         else:
             r.set(category, 0)
 
-        finans[category] += int(text)
         user_data[category] = text
         del user_data['choice']
 
