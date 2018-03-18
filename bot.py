@@ -80,8 +80,8 @@ def received_information(bot, update, user_data):
 
     if is_int(text):
         category = user_data['choice']
-		print(category)
-		
+        print(category)
+
 
         old_value = r.get(category)
         print("Old value:{0}".format(old_value))
