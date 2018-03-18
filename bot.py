@@ -35,7 +35,7 @@ def facts_to_str(user_data):
     facts = list()
 
     for cat in finans:
-        cat_value = = r.get(cat)
+        cat_value = r.get(cat)
         if cat_value is not None:
             facts.append('{} - {}'.format(cat, str(int(cat_value))))
 
