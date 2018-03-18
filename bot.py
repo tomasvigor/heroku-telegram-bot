@@ -83,8 +83,9 @@ def received_information(bot, update, user_data):
 
         new_value = old_value + int(text)
         print("New value:{1}".format(new_value)
+
         r.hset(category, new_value)
-        
+
         finans[category] += int(text)
         user_data[category] = text
         del user_data['choice']
