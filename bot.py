@@ -81,9 +81,12 @@ def received_information(bot, update, user_data):
         old_value = r.get(category)
         print("Old value:{0}".format(old_value))
 
-        new_value = old_value + int(text)
-        print("New value:{0}".format(new_value))
-        r.set(category, new_value)
+        if old_value not is None:
+            new_value = old_value + int(text)
+            print("New value:{0}".format(new_value))
+            r.set(category, new_value)
+        else:
+            r.set(category, 0)
 
         finans[category] += int(text)
         user_data[category] = text
