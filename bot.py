@@ -82,7 +82,7 @@ def received_information(bot, update, user_data):
         print("Old value:{0}".format(old_value))
 
         if old_value is not None:
-            new_value = old_value + int(text)
+            new_value = int(old_value) + int(text)
             print("New value:{0}".format(new_value))
             r.set(category, new_value)
         else:
