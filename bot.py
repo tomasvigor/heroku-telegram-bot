@@ -43,6 +43,7 @@ def facts_to_str():
 
     for cat in finans:
         cat_value = r.get(md(cat))
+        print(md(cat))
         if cat_value is not None:
             facts.append('{} -\t {}'.format(cat, str(int(cat_value))))
 
