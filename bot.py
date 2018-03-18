@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import redis
 import logging
 import telegram
 from telegram.error import NetworkError, Unauthorized
@@ -25,6 +26,9 @@ reply_keyboard = [['Еда', 'Развлечения'],
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 finans = {'Еда' : 0, 'Развлечения' : 0, 'Машина' : 0, 'Другое' : 0}
+
+r = redis.from_url(os.environ.get("REDIS_URL"))
+print(r)
 
 
 def facts_to_str(user_data):
