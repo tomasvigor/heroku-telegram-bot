@@ -54,9 +54,9 @@ def is_int(s):
         return True
     except ValueError:
         return False
-		
+
 def md(key):
-    prefix = datetime.now().month + datetime.now().year
+    prefix = str(datetime.now().month) + str(datetime.now().year)
     return prefix + '|' + key
 
 
