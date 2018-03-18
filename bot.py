@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
 
 food = u'\U0001F35F'
-car = u'\U0001F69S'
+car = u'\U0001F3CE'
 party = u'\U0001F973'
 other = u'\U0001F9E6'
 statistics = u'\U0001F4C8'
