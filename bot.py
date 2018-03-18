@@ -33,9 +33,12 @@ print(r)
 
 def facts_to_str(user_data):
     facts = list()
+	
+	facts.append('{} - {}'.format('Еда', r.get('Еда')))
+	facts.append('{} - {}'.format('Развлечения', r.get('Развлечения')))
+	facts.append('{} - {}'.format('Машина', r.get('Машина')))
+	facts.append('{} - {}'.format('Другое', r.get('Другое')))
 
-    for key, value in user_data.items():
-        facts.append('{} - {}'.format(key, value))
 
     return "\n".join(facts).join(['\n', '\n'])
 
@@ -77,6 +80,8 @@ def received_information(bot, update, user_data):
 
     if is_int(text):
         category = user_data['choice']
+		print(category)
+		
 
         old_value = r.get(category)
         print("Old value:{0}".format(old_value))
