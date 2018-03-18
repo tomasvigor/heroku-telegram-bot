@@ -33,11 +33,11 @@ print(r)
 
 def facts_to_str(user_data):
     facts = list()
-	
-	facts.append('{} - {}'.format('Еда', r.get('Еда')))
-	facts.append('{} - {}'.format('Развлечения', r.get('Развлечения')))
-	facts.append('{} - {}'.format('Машина', r.get('Машина')))
-	facts.append('{} - {}'.format('Другое', r.get('Другое')))
+
+    facts.append('{} - {}'.format('Еда', r.get('Еда')))
+    facts.append('{} - {}'.format('Развлечения', r.get('Развлечения')))
+    facts.append('{} - {}'.format('Машина', r.get('Машина')))
+    facts.append('{} - {}'.format('Другое', r.get('Другое')))
 
 
     return "\n".join(facts).join(['\n', '\n'])
