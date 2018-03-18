@@ -20,11 +20,11 @@ logger = logging.getLogger(__name__)
 
 CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
 
-hot = u'\U0001F525'
+food = u'\U0001F35F'
 
-reply_keyboard = [['Еда', 'Развлечения'],
+reply_keyboard = [[ food + 'Еда' + food, 'Развлечения'],
                   ['Машина', 'Другое'],
-                  ['Статистика' + hot]]
+                  ['Статистика']]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 finans = {'Еда', 'Развлечения', 'Машина', 'Другое'}
