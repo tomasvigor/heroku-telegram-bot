@@ -20,14 +20,19 @@ logger = logging.getLogger(__name__)
 
 CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
 
+hot = u'\U0001F525'
+
 reply_keyboard = [['Еда', 'Развлечения'],
                   ['Машина', 'Другое'],
-                  ['Статистика']]
+                  ['Статистика' + hot]]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 finans = {'Еда', 'Развлечения', 'Машина', 'Другое'}
 
 r = redis.from_url(os.environ.get("REDIS_URL"))
+
+
+
 print(r)
 
 
