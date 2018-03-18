@@ -25,7 +25,7 @@ reply_keyboard = [['Еда', 'Развлечения'],
                   ['Статистика']]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
-finans = {'Еда' : 0, 'Развлечения' : 0, 'Машина' : 0, 'Другое' : 0}
+finans = {'Еда', 'Развлечения', 'Машина', 'Другое'}
 
 r = redis.from_url(os.environ.get("REDIS_URL"))
 print(r)
@@ -34,11 +34,10 @@ print(r)
 def facts_to_str(user_data):
     facts = list()
 
-    facts.append('{} - {}'.format('Еда', str(int(r.get('Еда')))))
-    facts.append('{} - {}'.format('Развлечения', str(int(r.get('Развлечения')))))
-    facts.append('{} - {}'.format('Машина', str(int(r.get('Машина')))))
-    facts.append('{} - {}'.format('Другое', str(int(r.get('Другое')))))
-
+    for cat int finans:
+        cat_value = = r.get(cat)
+        if cat_value is not None:
+            facts.append('{} - {}'.format(cat, str(int(cat_value))))
 
     return "\n".join(facts).join(['\n', '\n'])
 
