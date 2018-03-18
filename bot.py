@@ -79,10 +79,10 @@ def received_information(bot, update, user_data):
         category = user_data['choice']
 
         old_value = r.get(category)
-        print("Old value:{1}".format(old_value))
+        print("Old value:{0}".format(old_value))
 
         new_value = old_value + int(text)
-        print("New value:{1}".format(new_value))
+        print("New value:{0}".format(new_value))
         r.set(category, new_value)
 
         finans[category] += int(text)
