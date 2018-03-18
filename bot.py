@@ -20,19 +20,19 @@ logger = logging.getLogger(__name__)
 
 CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
 
-food = u'\U0001F35F'
-car = u'\U0001F3CE'
-party = u'\U0001F388'
-other = u'\U0001F9E6'
-statistics = u'\U0001F4C8'
+food_category = u'\U0001F35F' + 'Еда' + u'\U0001F35F'
+car_category = u'\U0001F3CE' + 'Машина' + u'\U0001F3CE'
+party_category = u'\U0001F388' + 'Развлечения' + u'\U0001F388'
+other_category = u'\U0001F9E6' + 'Другое' + u'\U0001F9E6'
+statistics_category = u'\U0001F4C8' + 'Статистика' + u'\U0001F4C8' 
 
 
-reply_keyboard = [[ food + 'Еда' + food, party +'Развлечения'+ party],
-                  [ car + 'Машина' + car, other + 'Другое' + other],
-                  [ statistics + 'Статистика' + statistics]]
+reply_keyboard = [[ food_category, party_category],
+                  [ car_category, other_category],
+                  [ statistics_category]]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
-finans = {'Еда', 'Развлечения', 'Машина', 'Другое'}
+finans = {food_category, party_category, car_category, other_category}
 
 r = redis.from_url(os.environ.get("REDIS_URL"))
 
