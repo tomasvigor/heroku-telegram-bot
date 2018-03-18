@@ -34,10 +34,10 @@ print(r)
 def facts_to_str(user_data):
     facts = list()
 
-    facts.append('{} - {}'.format('Еда', str(r.get('Еда'))))
-    facts.append('{} - {}'.format('Развлечения', str(r.get('Развлечения'))))
-    facts.append('{} - {}'.format('Машина', str(r.get('Машина'))))
-    facts.append('{} - {}'.format('Другое', str(r.get('Другое'))))
+    facts.append('{} - {}'.format('Еда', str(int(r.get('Еда')))))
+    facts.append('{} - {}'.format('Развлечения', str(int(r.get('Развлечения')))))
+    facts.append('{} - {}'.format('Машина', str(int(r.get('Машина')))))
+    facts.append('{} - {}'.format('Другое', str(int(r.get('Другое')))))
 
 
     return "\n".join(facts).join(['\n', '\n'])
