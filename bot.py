@@ -144,10 +144,10 @@ def main():
         entry_points=[CommandHandler('start', start)],
 
         states={
-            CHOOSING: [RegexHandler('^(Еда|Развлечения|Машина|Другое)$',
+            CHOOSING: [RegexHandler('^(' + food_category + '|' + party_category + '|' + car_category + '|' + other_category + ')$',
                                     regular_choice,
                                     pass_user_data=True),
-                       RegexHandler('^Статистика$',
+                       RegexHandler('^' + statistics_category  + '$',
                                     custom_choice,
 									pass_user_data=True),
                        ],
@@ -163,7 +163,6 @@ def main():
                            ],
         },
 
-        fallbacks=[RegexHandler('^Готово$', done, pass_user_data=True)]
     )
 
     dp.add_handler(conv_handler)
