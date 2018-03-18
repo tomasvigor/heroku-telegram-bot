@@ -57,8 +57,8 @@ def is_int(s):
 
 def start(bot, update):
     update.message.reply_text(
-        "Привет!" + u'\U0001F4A9' + "\n" +  "Я роднулин финансовый помощник" + u'\U0001F4B0'  + "\nБуду помогать считать траты. "
-        "Куда потратим деньги?" + u'\U0001F43C',
+        "Привет!" + u'\U0001F4A9' + "\n\n" +  "Я роднулин финансовый помощник" + u'\U0001F4B0'  + "\nБуду помогать считать траты. "
+        "\n\nКуда потратим деньги?" + u'\U0001F43C',
         reply_markup=markup)
 
     return CHOOSING
@@ -74,7 +74,7 @@ def regular_choice(bot, update, user_data):
 
 
 def custom_choice(bot, update, user_data):
-    update.message.reply_text("Итого за этот месяц:"
+    update.message.reply_text("Итого за этот месяц\n:"
                               "{}".format(facts_to_str()))
 
     return CHOOSING
@@ -101,7 +101,7 @@ def received_information(bot, update, user_data):
         user_data[category] = text
         del user_data['choice']
 
-        update.message.reply_text("Запомнил!" + u'\U0001F9E0' + "\nПоследние роднулины траты:"
+        update.message.reply_text("Запомнил!\n" + u'\U0001F9E0' + "\nПоследние роднулины траты:\n"
                               "{}".format(facts_to_str()), reply_markup=markup)
     else:
         category = user_data['choice']
