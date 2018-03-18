@@ -11,6 +11,7 @@ from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, Rege
                           ConversationHandler)
 
 import logging
+from datetime import datetime
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -41,7 +42,7 @@ def facts_to_str():
     facts = list()
 
     for cat in finans:
-        cat_value = r.get(cat)
+        cat_value = r.get(md(cat))
         if cat_value is not None:
             facts.append('{} -\t {}'.format(cat, str(int(cat_value))))
 
@@ -53,6 +54,10 @@ def is_int(s):
         return True
     except ValueError:
         return False
+		
+def md(key):
+    prefix = datetime.now().month + datetime.now().year
+    return prefix + '|' + key
 
 
 def start(bot, update):
@@ -74,7 +79,7 @@ def regular_choice(bot, update, user_data):
 
 
 def custom_choice(bot, update, user_data):
-    update.message.reply_text("Итого за этот месяц\n:"
+    update.message.reply_text("Итого за этот месяц:\n"
                               "{}".format(facts_to_str()))
 
     return CHOOSING
@@ -88,15 +93,15 @@ def received_information(bot, update, user_data):
         print(category)
 
 
-        old_value = r.get(category)
+        old_value = r.get(md(category))
         print("Old value:{0}".format(old_value))
 
         if old_value is not None:
             new_value = int(old_value) + int(text)
             print("New value:{0}".format(new_value))
-            r.set(category, new_value)
+            r.set(md(category), new_value)
         else:
-            r.set(category, 0)
+            r.set(md(category), 0)
 
         user_data[category] = text
         del user_data['choice']
