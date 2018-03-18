@@ -37,17 +37,13 @@ finans = {food_category, party_category, car_category, other_category}
 r = redis.from_url(os.environ.get("REDIS_URL"))
 
 
-
-print(r)
-
-
 def facts_to_str():
     facts = list()
 
     for cat in finans:
         cat_value = r.get(cat)
         if cat_value is not None:
-            facts.append('{} - {}'.format(cat, str(int(cat_value))))
+            facts.append('{} -\t {}'.format(cat, str(int(cat_value))))
 
     return "\n".join(facts).join(['\n', '\n'])
 
@@ -61,8 +57,8 @@ def is_int(s):
 
 def start(bot, update):
     update.message.reply_text(
-        "Привет! Я роднулин финансовый помощник. Буду помогать считать траты. "
-        "Куда потратим деньги?",
+        "Привет!" + u'\U0001F4A9' + "\n" +  "Я роднулин финансовый помощник" + u'\U0001F4B0'  + "\nБуду помогать считать траты. "
+        "Куда потратим деньги?" + u'\U0001F43C',
         reply_markup=markup)
 
     return CHOOSING
